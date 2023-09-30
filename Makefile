@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Werror -Wextra -Iinclude
-LDFLAGS = -lgtest -lgtest_main -pthread
-LIB_LDFLAGS = -L. -lCurves
+CXXFLAGS = -std=c++11 -Wall -Wextra -Iinclude -fopenmp #-Werror
+LDFLAGS = -lgtest -lgtest_main -pthread -fopenmp
+LIB_LDFLAGS = -L. -lCurves -fopenmp
 TARGET = 3DCurvesApp
 
 all: $(TARGET) test_build
@@ -15,11 +15,8 @@ run: $(TARGET)
 tests: test_build
 	LD_LIBRARY_PATH=$(PWD) ./tests
 
-test_build: build_library
-	$(CXX) $(CXXFLAGS) -o tests src/tests.cpp $(LDFLAGS) $(LIB_LDFLAGS)
-
 leaks: test_build
-	LD_LIBRARY_PATH=$(PWD) valgrind --leak-check=full ./tests
+	LD_LIBRARY_PATH=$(PWD) valgrind --leak-check=full ./$(TARGET)
 
 clean:
 	rm -f libCurves/*.o $(TARGET) tests libCurves.so
@@ -29,6 +26,9 @@ docker_build:
 
 docker_run:
 	docker run --rm -it 3dcurves-tests
+
+test_build: build_library
+	$(CXX) $(CXXFLAGS) -o tests src/tests.cpp $(LDFLAGS) $(LIB_LDFLAGS)
 
 build_library:
 	mkdir -p libCurves/

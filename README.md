@@ -4,7 +4,8 @@
 
 This project is a C++ implementation of a 3D curves hierarchy supporting circles, ellipses, and 3D helixes.
 
-Getting Started
+Remark: During the development, I noticed that a circle is a special case of an ellipse. To avoid duplicating code, I derived the Circle class from the Ellipse class.
+Getting Started.
 
     Prerequisites:
         Libraries: gtest and gtest_main for testing.

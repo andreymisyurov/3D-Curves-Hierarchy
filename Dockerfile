@@ -13,4 +13,4 @@ COPY . .
 
 RUN make
 
-CMD make leaks && make run
+CMD make tests && make leaks

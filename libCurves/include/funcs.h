@@ -25,6 +25,9 @@ class CurveUtils {
   bool static compareRadii(const std::shared_ptr<Curve> &a, const std::shared_ptr<Curve> &b);
   void static sortCircle(shape_vec &circles);
   double static getSumRadii(const shape_vec &circles);
+
+  // I have done multi-threading, but it's leaks if I use valgrind.
+  //  double static getSumRadiiMultiThreading(const shape_vec &circles);
 };
 
 #endif // RANDOM_SHAPE_H
