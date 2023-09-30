@@ -31,9 +31,9 @@ std::shared_ptr<Curve> getRandomShape() {
 
 void printShapeVec(const shape_vec& curves) {
   std::cout << std::fixed << std::setprecision(3);
-  for (const auto &curve : curves) {
-    auto point = curve->getPoint(M_PI_4);
-    auto derivative = curve->getDerivative(M_PI_4);
+  for (auto &&el : curves) {
+    auto point = el->getPoint(M_PI_4);
+    auto derivative = el->getDerivative(M_PI_4);
     std::cout << "Point: ("
               << std::setw(7) << point.x << ", "
               << std::setw(7) << point.y << ", "
@@ -41,7 +41,7 @@ void printShapeVec(const shape_vec& curves) {
               << "Derivative: ("
               << std::setw(7) << derivative.x << ", "
               << std::setw(7) << derivative.y << ", "
-              << std::setw(7) << derivative.z << ")\n";
+              << std::setw(7) << derivative.z << ")" << " - " << el->getName() << "\n";
 
   }
 }

@@ -1,6 +1,6 @@
 #include "helix.h"
 
-Helix::Helix(double r, double step) {
+Helix::Helix(double r, double step): Curve("Helix") {
   if (r <= 0) {
     throw std::invalid_argument("Incorrect value");
   }
@@ -10,9 +10,9 @@ Helix::Helix(double r, double step) {
 
 }
 
-Helix::Helix(const Helix& other) : m_r(other.m_r), m_step(other.m_step) { }
+Helix::Helix(const Helix& other) : Curve("Helix"), m_r(other.m_r), m_step(other.m_step) { }
 
-Helix::Helix(Helix&& other) noexcept : m_r(other.m_r), m_step(other.m_step) { }
+Helix::Helix(Helix&& other) noexcept : Curve("Helix"), m_r(other.m_r), m_step(other.m_step) { }
 
 Helix::~Helix() { }
 

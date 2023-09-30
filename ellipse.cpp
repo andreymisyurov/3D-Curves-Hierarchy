@@ -1,7 +1,7 @@
 #include "ellipse.h"
 
 
-Ellipse::Ellipse(double a, double b) {
+Ellipse::Ellipse(double a, double b): Curve("Ellipse") {
   if (a <= 0 || b <= 0) {
     throw std::invalid_argument("Incorrect value");
   }
@@ -9,8 +9,8 @@ Ellipse::Ellipse(double a, double b) {
   m_b = b;
 }
 
-Ellipse::Ellipse(const Ellipse& other):m_a(other.m_a), m_b(other.m_b) {}
-Ellipse::Ellipse(Ellipse&& other) noexcept : m_a(other.m_a), m_b(other.m_b) {}
+Ellipse::Ellipse(const Ellipse& other): Curve("Ellipse"), m_a(other.m_a), m_b(other.m_b) { }
+Ellipse::Ellipse(Ellipse&& other) noexcept : Curve("Ellipse"), m_a(other.m_a), m_b(other.m_b) { }
 Ellipse::~Ellipse() {};
 
 Point3D Ellipse::getPoint(double t) const {
