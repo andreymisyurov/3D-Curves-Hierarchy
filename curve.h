@@ -25,4 +25,4 @@ class Curve {
   virtual ~Curve() {}
 };
 
-#endif
+#endif // D_SURVES_HIERARCHY_CURVE_H

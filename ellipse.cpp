@@ -3,7 +3,7 @@
 
 Ellipse::Ellipse(double a, double b) {
   if (a <= 0 || b <= 0) {
-    throw std::invalid_argument("Incorrect axes");
+    throw std::invalid_argument("Incorrect value");
   }
   m_a = a;
   m_b = b;
@@ -21,6 +21,7 @@ Point3D Ellipse::getPoint(double t) const {
   };
   return result;
 }
+
 Vector3D Ellipse::getDerivative(double t) const {
   Vector3D result = {
       .x = -m_a * sin(t),

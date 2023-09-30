@@ -1,16 +1,15 @@
-#include "curve.h"
+#ifndef D_SURVES_HIERARCHY_CIRCLE_H
+#define D_SURVES_HIERARCHY_CIRCLE_H
 
-class Circle: public Curve {
+#include "ellipse.h"
+
+class Circle: public Ellipse {
  public:
   Circle() = delete;
   Circle(double r);
   Circle(const Circle& other);
   Circle(Circle&& other) noexcept;
   ~Circle();
-
-  Point3D getPoint(double t) const override;
-  Vector3D getDerivative(double t) const override;
-
- private:
-  double m_radius;
 };
+
+#endif // D_SURVES_HIERARCHY_CIRCLE_H
