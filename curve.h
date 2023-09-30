@@ -1,6 +1,10 @@
+#ifndef D_SURVES_HIERARCHY_CURVE_H
+#define D_SURVES_HIERARCHY_CURVE_H
+
 #include <cmath>
 #include <stdexcept>
 #include <utility>
+
 
 struct Point3D {
   double x;
@@ -20,3 +24,5 @@ class Curve {
   virtual Vector3D getDerivative(double t) const = 0;
   virtual ~Curve() {}
 };
+
+#endif

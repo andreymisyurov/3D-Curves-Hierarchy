@@ -1,9 +1,10 @@
 #include "circle.h"
 
-Circle::Circle(double r):m_radius(r) {
+Circle::Circle(double r) {
   if (r <= 0) {
     throw std::invalid_argument("Incorrect radius");
   }
+  m_radius = r;
 }
 Circle::Circle(const Circle& other):m_radius(other.m_radius) {}
 Circle::Circle(Circle&& other) noexcept : m_radius(other.m_radius) {}
