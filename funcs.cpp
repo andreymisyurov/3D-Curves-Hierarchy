@@ -58,10 +58,26 @@ void fillOnlyCircles(const shape_vec& first, shape_vec& second) {
 bool compareRadii(const std::shared_ptr<Curve>& a, const std::shared_ptr<Curve>& b) {
   auto circle_A = std::dynamic_pointer_cast<Circle>(a);
   auto circle_B = std::dynamic_pointer_cast<Circle>(b);
-
+  if(nullptr == circle_A || nullptr == circle_B) {
+    throw std::runtime_error("el is not a Circle");
+  }
   return circle_A->getRadius() < circle_B->getRadius();
 }
 
 void sortCircle(shape_vec& circles) {
   std::sort(circles.begin(), circles.end(), compareRadii);
+}
+
+double getSumRadii(const shape_vec& circles) {
+  double result = 0.;
+  for(auto &&el:circles) {
+    auto tmp = std::dynamic_pointer_cast<Circle>(el);
+
+    if(nullptr == tmp) {
+      throw std::runtime_error("el is not a Circle");
+    }
+
+    result += tmp->getRadius();
+  }
+  return result;
 }

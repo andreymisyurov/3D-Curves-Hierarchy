@@ -17,6 +17,7 @@ int main() {
   sortCircle(circles);
   std::cout << std::endl;
   printShapeVec(circles);
-
+  std::cout << std::endl;
+  std::cout << getSumRadii(circles);
   return 0;
 }
