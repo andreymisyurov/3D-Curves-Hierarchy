@@ -14,6 +14,9 @@ int main() {
 
   shape_vec circles;
   fillOnlyCircles(curves,circles);
+  sortCircle(circles);
+  std::cout << std::endl;
+  printShapeVec(circles);
 
   return 0;
 }

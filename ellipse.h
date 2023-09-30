@@ -13,6 +13,8 @@ class Ellipse: public Curve {
 
   Point3D getPoint(double t) const override;
   Vector3D getDerivative(double t) const override;
+  double getA() const;
+  double getB() const;
 
  private:
   double m_a;

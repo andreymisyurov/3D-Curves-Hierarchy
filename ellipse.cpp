@@ -30,3 +30,7 @@ Vector3D Ellipse::getDerivative(double t) const {
   };
   return result;
 }
+
+double Ellipse::getA() const { return m_a; }
+
+double Ellipse::getB() const { return m_b; }

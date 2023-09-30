@@ -11,3 +11,7 @@ Circle::Circle(Circle&& other) noexcept : Ellipse(std::move(other)) {
   m_name = "Circle";
 }
 Circle::~Circle() {};
+
+double Circle::getRadius() const {
+  return getA();
+}

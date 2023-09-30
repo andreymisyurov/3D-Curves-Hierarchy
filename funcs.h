@@ -8,6 +8,7 @@
 #include <vector>
 #include <iomanip>
 #include <iostream>
+#include <algorithm>
 
 #include "circle.h"
 #include "ellipse.h"
@@ -18,5 +19,7 @@ using shape_vec = std::vector<std::shared_ptr<Curve>>;
 std::shared_ptr<Curve> getRandomShape();
 void printShapeVec(const shape_vec& curves);
 void fillOnlyCircles(const shape_vec& first, shape_vec& second);
+bool compareRadii(const std::shared_ptr<Curve>& a, const std::shared_ptr<Curve>& b);
+void sortCircle(shape_vec& circles);
 
 #endif // RANDOM_SHAPE_H

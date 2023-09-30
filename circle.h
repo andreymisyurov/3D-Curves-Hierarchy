@@ -10,6 +10,8 @@ class Circle: public Ellipse {
   Circle(const Circle& other);
   Circle(Circle&& other) noexcept;
   ~Circle();
+
+  double getRadius() const;
 };
 
 #endif // CIRCLE_H

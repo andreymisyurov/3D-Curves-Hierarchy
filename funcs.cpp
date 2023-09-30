@@ -51,7 +51,17 @@ void fillOnlyCircles(const shape_vec& first, shape_vec& second) {
   for (auto &&el: first) {
     if (auto circlePtr = std::dynamic_pointer_cast<Circle>(el)) {
       second.push_back(circlePtr);
-      std::cout << 1;
     }
   }
+}
+
+bool compareRadii(const std::shared_ptr<Curve>& a, const std::shared_ptr<Curve>& b) {
+  auto circle_A = std::dynamic_pointer_cast<Circle>(a);
+  auto circle_B = std::dynamic_pointer_cast<Circle>(b);
+
+  return circle_A->getRadius() < circle_B->getRadius();
+}
+
+void sortCircle(shape_vec& circles) {
+  std::sort(circles.begin(), circles.end(), compareRadii);
 }
