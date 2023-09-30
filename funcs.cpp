@@ -2,7 +2,7 @@
 
 std::shared_ptr<Curve> getRandomShape() {
   static bool check = true;
-  if(check) {
+  if (check) {
     srand(time(NULL));
     check = false;
   }
@@ -22,14 +22,13 @@ std::shared_ptr<Curve> getRandomShape() {
     return std::make_shared<Helix>(a, b);
   };
 
-
   std::vector<std::function<std::shared_ptr<Curve>(double, double)>> creators{createCircle, createEllipse, createHelix};
 
   int index = rand() % 3;
   return creators[index](a, b);
 }
 
-void printShapeVec(const shape_vec& curves) {
+void printShapeVec(const shape_vec &curves) {
   std::cout << std::fixed << std::setprecision(3);
   for (auto &&el : curves) {
     auto point = el->getPoint(M_PI_4);
@@ -46,38 +45,39 @@ void printShapeVec(const shape_vec& curves) {
   }
 }
 
-void fillOnlyCircles(const shape_vec& first, shape_vec& second) {
+void fillOnlyCircles(const shape_vec &first, shape_vec &second) {
   std::vector<std::shared_ptr<Circle>> circlesContainer;
-  for (auto &&el: first) {
+  for (auto &&el : first) {
     if (auto circlePtr = std::dynamic_pointer_cast<Circle>(el)) {
       second.push_back(circlePtr);
     }
   }
 }
 
-bool compareRadii(const std::shared_ptr<Curve>& a, const std::shared_ptr<Curve>& b) {
+bool compareRadii(const std::shared_ptr<Curve> &a, const std::shared_ptr<Curve> &b) {
   auto circle_A = std::dynamic_pointer_cast<Circle>(a);
   auto circle_B = std::dynamic_pointer_cast<Circle>(b);
-  if(nullptr == circle_A || nullptr == circle_B) {
+  if (nullptr == circle_A || nullptr == circle_B) {
     throw std::runtime_error("el is not a Circle");
   }
   return circle_A->getRadius() < circle_B->getRadius();
 }
 
-void sortCircle(shape_vec& circles) {
+void sortCircle(shape_vec &circles) {
   std::sort(circles.begin(), circles.end(), compareRadii);
 }
 
-double getSumRadii(const shape_vec& circles) {
-  double result = 0.;
-  for(auto &&el:circles) {
-    auto tmp = std::dynamic_pointer_cast<Circle>(el);
 
+
+double getSumRadii(const shape_vec &circles) {
+  auto lambda = [](double sum, const std::shared_ptr<Curve>& el) {
+    auto tmp = std::dynamic_pointer_cast<Circle>(el);
     if(nullptr == tmp) {
       throw std::runtime_error("el is not a Circle");
     }
+    return sum + tmp->getRadius();
+  };
 
-    result += tmp->getRadius();
-  }
-  return result;
+  return std::accumulate(circles.begin(), circles.end(), 0.0, lambda);
+
 }

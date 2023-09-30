@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 
 #include "circle.h"
 #include "ellipse.h"
