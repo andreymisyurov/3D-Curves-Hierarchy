@@ -1,5 +1,5 @@
-#ifndef D_SURVES_HIERARCHY_HELIX_H
-#define D_SURVES_HIERARCHY_HELIX_H
+#ifndef HELIX_H
+#define HELIX_H
 
 #include "curve.h"
 
@@ -19,4 +19,4 @@ class Helix: public Curve {
   double m_step;
 };
 
-#endif // D_SURVES_HIERARCHY_HELIX_H
+#endif // HELIX_H

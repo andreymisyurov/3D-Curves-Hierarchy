@@ -1,5 +1,5 @@
-#ifndef D_SURVES_HIERARCHY_ELLIPSE_H
-#define D_SURVES_HIERARCHY_ELLIPSE_H
+#ifndef ELLIPSE_H
+#define ELLIPSE_H
 
 #include "curve.h"
 
@@ -19,4 +19,4 @@ class Ellipse: public Curve {
   double m_b;
 };
 
-#endif // D_SURVES_HIERARCHY_ELLIPSE_H
+#endif // ELLIPSE_H

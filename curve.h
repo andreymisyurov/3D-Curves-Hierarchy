@@ -1,5 +1,5 @@
-#ifndef D_SURVES_HIERARCHY_CURVE_H
-#define D_SURVES_HIERARCHY_CURVE_H
+#ifndef CURVE_H
+#define CURVE_H
 
 #include <cmath>
 #include <stdexcept>
@@ -25,4 +25,4 @@ class Curve {
   virtual ~Curve() {}
 };
 
-#endif // D_SURVES_HIERARCHY_CURVE_H
+#endif // CURVE_H

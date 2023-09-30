@@ -1,5 +1,5 @@
-#ifndef D_SURVES_HIERARCHY_CIRCLE_H
-#define D_SURVES_HIERARCHY_CIRCLE_H
+#ifndef CIRCLE_H
+#define CIRCLE_H
 
 #include "ellipse.h"
 
@@ -12,4 +12,4 @@ class Circle: public Ellipse {
   ~Circle();
 };
 
-#endif // D_SURVES_HIERARCHY_CIRCLE_H
+#endif // CIRCLE_H
