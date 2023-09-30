@@ -1,7 +1,11 @@
 #include "funcs.h"
 
 std::shared_ptr<Curve> getRandomShape() {
-  srand(time(NULL));
+  static bool check = true;
+  if(check) {
+    srand(time(NULL));
+    check = false;
+  }
 
   double a = rand() % 10000 / 1000.;
   double b = rand() % 10000 / 1000.;
@@ -23,4 +27,21 @@ std::shared_ptr<Curve> getRandomShape() {
 
   int index = rand() % 3;
   return creators[index](a, b);
+}
+
+void printShapeVec(const shape_vec& curves) {
+  std::cout << std::fixed << std::setprecision(3);
+  for (const auto &curve : curves) {
+    auto point = curve->getPoint(M_PI_4);
+    auto derivative = curve->getDerivative(M_PI_4);
+    std::cout << "Point: ("
+              << std::setw(7) << point.x << ", "
+              << std::setw(7) << point.y << ", "
+              << std::setw(7) << point.z << ")   "
+              << "Derivative: ("
+              << std::setw(7) << derivative.x << ", "
+              << std::setw(7) << derivative.y << ", "
+              << std::setw(7) << derivative.z << ")\n";
+
+  }
 }
