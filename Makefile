@@ -1,27 +1,28 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Werror -Wextra -Iinclude
 LDFLAGS = -lgtest -lgtest_main -pthread
+LIB_LDFLAGS = -L. -lCurves
 TARGET = 3DCurvesApp
 
-SRC = src/circle.cpp src/ellipse.cpp src/helix.cpp src/funcs.cpp src/main.cpp
-OBJ = $(SRC:.cpp=.o)
+all: $(TARGET) test_build
 
-all: $(TARGET)
+$(TARGET): build_library
+	$(CXX) $(CXXFLAGS) -o $@ src/main.cpp $(LIB_LDFLAGS)
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
+run: $(TARGET)
+	LD_LIBRARY_PATH=$(PWD) ./$(TARGET)
 
-tests_compile:
-	$(CXX) $(CXXFLAGS) -o tests src/circle.cpp src/ellipse.cpp src/helix.cpp src/tests.cpp src/funcs.cpp $(LDFLAGS)
+tests: test_build
+	LD_LIBRARY_PATH=$(PWD) ./tests
 
-tests: tests_compile
-	./tests
+test_build: build_library
+	$(CXX) $(CXXFLAGS) -o tests src/tests.cpp $(LDFLAGS) $(LIB_LDFLAGS)
 
-leaks:
-	valgrind --leak-check=full ./tests
+leaks: test_build
+	LD_LIBRARY_PATH=$(PWD) valgrind --leak-check=full ./tests
 
 clean:
-	rm -f src/*.o $(TARGET) tests
+	rm -f libCurves/*.o $(TARGET) tests libCurves.so
 
 docker_build:
 	docker build -t 3dcurves-tests .
@@ -29,4 +30,14 @@ docker_build:
 docker_run:
 	docker run --rm -it 3dcurves-tests
 
-.PHONY: all clean tests leaks
+build_library:
+	mkdir -p libCurves/
+	cp -r include/ libCurves/
+	cp src/circle.cpp src/ellipse.cpp src/helix.cpp src/funcs.cpp libCurves/
+	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/circle.cpp -o libCurves/circle.o
+	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/ellipse.cpp -o libCurves/ellipse.o
+	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/helix.cpp -o libCurves/helix.o
+	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/funcs.cpp -o libCurves/funcs.o
+	g++ -shared -o libCurves.so libCurves/circle.o libCurves/ellipse.o libCurves/helix.o libCurves/funcs.o
+
+.PHONY: all clean tests leaks build_library

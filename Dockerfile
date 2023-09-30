@@ -11,6 +11,6 @@ WORKDIR /3D-Curves-Hierarchy
 
 COPY . .
 
-RUN make && make tests_compile
+RUN make
 
-CMD valgrind --leak-check=full ./tests && ./3DCurvesApp
+CMD make leaks && make run
