@@ -5,9 +5,9 @@ Circle::Circle(double r):m_radius(r) {
     throw std::invalid_argument("Incorrect radius");
   }
 }
-Circle::Circle(const Circle& other):m_radius(other.m_radius) { }
-Circle::Circle(Circle&& other) noexcept:m_radius(other.m_radius) { };
-Circle::~Circle() { };
+Circle::Circle(const Circle& other):m_radius(other.m_radius) {}
+Circle::Circle(Circle&& other) noexcept : m_radius(other.m_radius) {}
+Circle::~Circle() {};
 
 Point3D Circle::getPoint(double t) const {
   Point3D result = {
