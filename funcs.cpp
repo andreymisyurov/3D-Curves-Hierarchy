@@ -45,3 +45,13 @@ void printShapeVec(const shape_vec& curves) {
 
   }
 }
+
+void fillOnlyCircles(const shape_vec& first, shape_vec& second) {
+  std::vector<std::shared_ptr<Circle>> circlesContainer;
+  for (auto &&el: first) {
+    if (auto circlePtr = std::dynamic_pointer_cast<Circle>(el)) {
+      second.push_back(circlePtr);
+      std::cout << 1;
+    }
+  }
+}

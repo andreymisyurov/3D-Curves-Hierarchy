@@ -17,5 +17,6 @@ using shape_vec = std::vector<std::shared_ptr<Curve>>;
 
 std::shared_ptr<Curve> getRandomShape();
 void printShapeVec(const shape_vec& curves);
+void fillOnlyCircles(const shape_vec& first, shape_vec& second);
 
 #endif // RANDOM_SHAPE_H

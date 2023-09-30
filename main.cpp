@@ -12,5 +12,8 @@ int main() {
 
   printShapeVec(curves);
 
+  shape_vec circles;
+  fillOnlyCircles(curves,circles);
+
   return 0;
 }
