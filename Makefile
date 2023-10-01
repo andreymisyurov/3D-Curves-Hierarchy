@@ -31,13 +31,14 @@ test_build: build_library
 	$(CXX) $(CXXFLAGS) -o tests src/tests.cpp $(LDFLAGS) $(LIB_LDFLAGS)
 
 build_library:
-	mkdir -p libCurves/
-	cp -r include/ libCurves/
-	cp src/circle.cpp src/ellipse.cpp src/helix.cpp src/funcs.cpp libCurves/
-	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/circle.cpp -o libCurves/circle.o
-	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/ellipse.cpp -o libCurves/ellipse.o
-	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/helix.cpp -o libCurves/helix.o
-	$(CXX) $(CXXFLAGS) -fPIC -c libCurves/funcs.cpp -o libCurves/funcs.o
+	@mkdir -p libCurves/
+	@cp -r include/ libCurves/
+	@cp src/circle.cpp src/ellipse.cpp src/helix.cpp src/funcs.cpp libCurves/
+	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/circle.cpp -o libCurves/circle.o
+	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/ellipse.cpp -o libCurves/ellipse.o
+	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/helix.cpp -o libCurves/helix.o
+	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/funcs.cpp -o libCurves/funcs.o
 	g++ -shared -o libCurves.so libCurves/circle.o libCurves/ellipse.o libCurves/helix.o libCurves/funcs.o
+	@rm -rf libCurves
 
 .PHONY: all clean tests leaks build_library

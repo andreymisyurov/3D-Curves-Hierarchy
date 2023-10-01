@@ -26,7 +26,9 @@ class CurveUtils {
   void static sortCircle(shape_vec &circles);
   double static getSumRadii(const shape_vec &circles);
 
-  // I have done multi-threading, but it's leaks if I use valgrind.
+  // I have done multi-threading, but it's leaks if I use valgrind. It's my first working with <omp.h> library.
+  // Maybe valgrind is wrong =)
+
   //  double static getSumRadiiMultiThreading(const shape_vec &circles);
 };
 

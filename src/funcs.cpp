@@ -1,4 +1,4 @@
-#include <omp.h>
+//#include <omp.h>
 
 #include "funcs.h"
 
@@ -111,7 +111,13 @@ double CurveUtils::getSumRadii(const shape_vec &circles) {
 }
 
 
-// I have done multi-threading, but it's leaks if i use valgrind.
+
+/**
+ * I have done multi-threading, but it's leaks if I use valgrind. It's my first working with <omp.h> library.
+ * Maybe valgrind is wrong =)
+ * @param circles
+ * @return
+ */
 //double CurveUtils::getSumRadiiMultiThreading(const shape_vec &circles) {
 //  double totalRadius = 0.0;
 //
