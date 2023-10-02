@@ -1,36 +1,34 @@
 #include <iostream>
 #include <vector>
 
-#include "funcs.h"
-
-using shape_vec = std::vector<std::shared_ptr<Curve>>;
+#include "my_container.h"
 
 int main() {
-  shape_vec curves(25);
+
+  MyContainer curves;
 
   std::cout << "Generating 25 random shapes...\n";
-  for(auto &&el: curves)
-    el = CurveUtils::getRandomShape();
+  curves.generateRandomShapes(25);
 
   std::cout << "\nAll generated shapes:\n";
-  CurveUtils::printShapeVec(curves);
+  curves.printShapes();
 
-  shape_vec circles;
+  MyContainer only_circles;
 
   std::cout << "\nFiltering circles from the list of shapes...\n";
-  CurveUtils::fillOnlyCircles(curves, circles);
+  only_circles.filterOnlyCircles(curves);
 
   std::cout << "\nSorting circles...\n";
-  CurveUtils::sortCircle(circles);
+  only_circles.sortCircles();
 
   std::cout << "\nList of sorted circles:\n";
-  CurveUtils::printShapeVec(circles);
+  only_circles.printShapes();
 
   std::cout << "\nTotal sum of circle radii: ";
-  std::cout << CurveUtils::getSumRadii(circles) << std::endl;
+  std::cout << only_circles.getSumRadii() << std::endl;
 
-  // I have done multi-threading, but it's leaks if i use valgrind.
-  //  std::cout << CurveUtils::getSumRadiiMultiThreading(circles) << std::endl;
+// I have done multi-threading, but it's leaks if I use valgrind.
+//  std::cout << only_circles.getSumRadiiMultiThreading() << std::endl;
 
   return 0;
 }

@@ -12,10 +12,10 @@ $(TARGET): build_library
 run: $(TARGET)
 	LD_LIBRARY_PATH=$(PWD) ./$(TARGET)
 
-tests: test_build
+tests: $(TARGET)
 	LD_LIBRARY_PATH=$(PWD) ./tests
 
-leaks: test_build
+leaks: all
 	LD_LIBRARY_PATH=$(PWD) valgrind --leak-check=full ./$(TARGET)
 
 clean:
@@ -33,12 +33,12 @@ test_build: build_library
 build_library:
 	@mkdir -p libCurves/
 	@cp -r include/ libCurves/
-	@cp src/circle.cpp src/ellipse.cpp src/helix.cpp src/funcs.cpp libCurves/
+	@cp src/circle.cpp src/ellipse.cpp src/helix.cpp src/my_container.cpp libCurves/
 	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/circle.cpp -o libCurves/circle.o
 	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/ellipse.cpp -o libCurves/ellipse.o
 	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/helix.cpp -o libCurves/helix.o
-	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/funcs.cpp -o libCurves/funcs.o
-	g++ -shared -o libCurves.so libCurves/circle.o libCurves/ellipse.o libCurves/helix.o libCurves/funcs.o
+	@$(CXX) $(CXXFLAGS) -fPIC -c libCurves/my_container.cpp -o libCurves/my_container.o
+	g++ -shared -o libCurves.so libCurves/circle.o libCurves/ellipse.o libCurves/helix.o libCurves/my_container.o
 	@rm -rf libCurves
 
 .PHONY: all clean tests leaks build_library

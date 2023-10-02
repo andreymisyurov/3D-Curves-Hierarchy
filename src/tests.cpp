@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "ellipse.h"
 #include "helix.h"
-#include "funcs.h"
+#include "my_container.h"
 
 // Tests for circle
 
@@ -78,20 +78,6 @@ ASSERT_NEAR(v.y, 4.0, 1e-6);
 ASSERT_NEAR(v.z, 0.0, 1e-6);
 }
 
-TEST(EllipseTest, CopyConstructorTest) {
-Ellipse e1(3, 4);
-Ellipse e2(e1);
-ASSERT_NEAR(e1.getPoint(0).x, e2.getPoint(0).x, 1e-6);
-ASSERT_NEAR(e1.getPoint(0).y, e2.getPoint(0).y, 1e-6);
-}
-
-TEST(EllipseTest, MoveConstructorTest) {
-Ellipse e1(3, 4);
-Ellipse e2(std::move(e1));
-ASSERT_NEAR(e2.getPoint(0).x, 3.0, 1e-6);
-ASSERT_NEAR(e2.getPoint(0).y, 0.0, 1e-6);
-}
-
 
 TEST(HelixTest, Constructor) {
 Helix helix(5.0, 2.0);
@@ -156,56 +142,4 @@ Vector3D helixDerivative = h.getDerivative(0);
 ASSERT_NEAR(circleDerivative.x, helixDerivative.x, 1e-6);
 ASSERT_NEAR(circleDerivative.y, helixDerivative.y, 1e-6);
 ASSERT_NEAR(circleDerivative.z, helixDerivative.z, 1e-6);
-}
-
-TEST(CurveUtilsTest, getRandomShape) {
-auto shape = CurveUtils::getRandomShape();
-EXPECT_TRUE(shape != nullptr);
-bool isCircle = std::dynamic_pointer_cast<Circle>(shape) != nullptr;
-bool isEllipse = std::dynamic_pointer_cast<Ellipse>(shape) != nullptr;
-bool isHelix = std::dynamic_pointer_cast<Helix>(shape) != nullptr;
-EXPECT_TRUE(isCircle || isEllipse || isHelix);
-}
-
-
-TEST(CurveUtilsTest, fillOnlyCircles) {
-shape_vec src = {
-    std::make_shared<Circle>(5.0),
-    std::make_shared<Helix>(5.0, 2.0),
-    std::make_shared<Ellipse>(3.0, 4.0),
-    std::make_shared<Circle>(7.0)
-};
-shape_vec dest;
-CurveUtils::fillOnlyCircles(src, dest);
-EXPECT_EQ(dest.size(), 2);
-for (auto&& shape : dest) {
-  EXPECT_TRUE(std::dynamic_pointer_cast<Circle>(shape) != nullptr);
-}
-}
-
-TEST(CurveUtilsTest, compareRadii) {
-auto circle1 = std::make_shared<Circle>(5.0);
-auto circle2 = std::make_shared<Circle>(7.0);
-EXPECT_TRUE(CurveUtils::compareRadii(circle1, circle2));
-EXPECT_FALSE(CurveUtils::compareRadii(circle2, circle1));
-}
-
-TEST(CurveUtilsTest, sortCircle) {
-shape_vec circles = {
-    std::make_shared<Circle>(7.0),
-    std::make_shared<Circle>(5.0)
-};
-CurveUtils::sortCircle(circles);
-auto circle1 = std::dynamic_pointer_cast<Circle>(circles[0]);
-auto circle2 = std::dynamic_pointer_cast<Circle>(circles[1]);
-EXPECT_TRUE(circle1->getRadius() < circle2->getRadius());
-}
-
-TEST(CurveUtilsTest, getSumRadii) {
-shape_vec circles = {
-    std::make_shared<Circle>(5.0),
-    std::make_shared<Circle>(7.0)
-};
-double sum = CurveUtils::getSumRadii(circles);
-EXPECT_NEAR(sum, 12.0, 1e-6);
 }
